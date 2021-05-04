@@ -32,7 +32,7 @@ To use the scripts, navigate to the scripts subdirectory and follow the below st
 Ex: `python3 csv_query.py ../databases/nela_eng-2020.db query.sql ../results/data1.csv`
 
 1. (Optional) Run `lda_k.py` to find perplexities for each number of topics in range 1 to 20.\
-Ex: `python3 lda_k.py`
+Ex: `python3 lda_k.py ../results/data1.csv`
 
 1. Run `lda.py` with a chosen number of topics to generate `period1_article_topics.csv` containing topic probably distribution per article and `period1.html` the pyLDAvis visualization for the given period. Two compressed pickle files containing topic probability distributions for each word and article are also created for later use.\
 Ex: `python3 lda.py ../results/data1.csv 10 ../results/period1`
