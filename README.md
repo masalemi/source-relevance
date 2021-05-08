@@ -16,11 +16,25 @@ The python scripts require Python 3.x and the following modules which can be ins
 Note that if nltk stopwords have not been used before a `LookupError` may occur. This error can be resolved by running the following command.
 ```
 python3 -m nltk.downloader stopwords
-``` 
-
-These scripts were written to support the NELA database schema. If a custom SQLite3 query is being used rows being selected must be of the form:
 ```
-(row_id, text_content, text_source, primary_key)
+
+These scripts were written to support the NELA database schema. The example query uses text matching so in order to run it on a NELA database, run the following 
+
+In order to run a query which uses keyword matching such as the example script first create a table with text indices. First run sqlite3 with the database selected:
+```
+sqlite3 ../databases/nela_eng-2020.db
+```
+Next, run the following commands in SQLite3:
+```
+DROP TABLE newscontent;
+CREATE VIRTUAL TABLE newscontent USING fts5(textcontent, title);
+INSERT INTO newscontent(rowid, textcontent, title)
+SELECT rowid, content, title from newsdata;
+```
+
+The scripts provided do not require a NELA database. Any SQLite3 can be used on a database which returns rows in the form of:
+```
+(unique_id, text_content, text_source)
 ```
 
 ## Steps
